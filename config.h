@@ -19,7 +19,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "T" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -27,8 +27,9 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "ST",       NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "zoom",     NULL,       NULL,       1 << 8,       1,           -1 },
+	{ "zoom",     NULL,       NULL,       1 << 14,       1,           -1 },
+	{ "Steam",    NULL,       "Steam - News", NULL,      1,           -1 },
+	{ "Steam",    NULL,       "Steam Guard - Computer Authorization Required", NULL,1,-1 },
 };
 
 /* layout(s) */
@@ -84,15 +85,20 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_F1,                     0)
+	TAGKEYS(                        XK_F2,                     1)
+	TAGKEYS(                        XK_F3,                     2)
+	TAGKEYS(                        XK_F4,                     3)
+	TAGKEYS(                        XK_F5,                     4)
+	TAGKEYS(                        XK_F6,                     5)
+	TAGKEYS(                        XK_F7,                     6)
+	TAGKEYS(                        XK_F8,                     7)
+	TAGKEYS(                        XK_F9,                     8)
+	TAGKEYS(			XK_F10,			   9)
+	TAGKEYS(			XK_F11,			   10)
+	TAGKEYS(			XK_F12,			   11)
+	TAGKEYS(			XK_F13,			   12)
+	TAGKEYS(			XK_F14,			   13)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
