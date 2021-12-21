@@ -64,6 +64,8 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ NULL,				XK_Print,  spawn,	   SHCMD("scrot -q 100 '/home/quentin/temp/screenshots/%Y-%m-%d-%s.png' -e 'xclip -selection clipboard -t image/png -i $f'") } ,
+	{ MODKEY,			XK_Print,  spawn,	   SHCMD("setxkbmap -option grab:break_actions; xdotool key XF86Ungrab; scrot -s -q 100 '/home/quentin/temp/screenshots/%Y-%m-%d-%s.png' -e 'xclip -selection clipboard -t image/png -i $f'") } ,
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
