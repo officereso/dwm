@@ -61,11 +61,28 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",     NULL };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",     NULL };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
+static const char *next[] = { "/usr/bin/playerctl", "next", NULL };
+static const char *playerPause[] = { "/usr/bin/playerctl", "pause", NULL };
+static const char *play[] = { "/usr/bin/playerctl", "play", NULL };
+static const char *previous[] = { "/usr/bin/playerctl", "previous", NULL };
+
+#include <X11/XF86keysym.h>
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ NULL,				XK_Print,  spawn,	   SHCMD("scrot -q 100 '/home/quentin/temp/screenshots/%Y-%m-%d-%s.png' -e 'xclip -selection clipboard -t image/png -i $f'") } ,
-	{ MODKEY,			XK_Print,  spawn,	   SHCMD("setxkbmap -option grab:break_actions; xdotool key XF86Ungrab; scrot -s -q 100 '/home/quentin/temp/screenshots/%Y-%m-%d-%s.png' -e 'xclip -selection clipboard -t image/png -i $f'") } ,
+	{ NULL,				XK_Print,  spawn,	   SHCMD("/usr/bin/scrot -q 100 '/home/quentin/temp/screenshots/%Y-%m-%d-%s.png' -e 'xclip -selection clipboard -t image/png -i $f'") } ,
+	{ MODKEY,			XK_Print,  spawn,	   SHCMD("/usr/bin/setxkbmap -option grab:break_actions; /usr/bin/xdotool key XF86Ungrab; /usr/bin/scrot -s -q 100 '/home/quentin/temp/screenshots/%Y-%m-%d-%s.png' -e 'xclip -selection clipboard -t image/png -i $f'") } ,
+	{ 0,				XF86XK_AudioLowerVolume,   spawn, 	{.v = downvol } },
+	{ 0,				XF86XK_AudioMute, 	   spawn,   	{.v = mutevol } },
+	{ 0,				XF86XK_AudioRaiseVolume,   spawn, 	{.v = upvol   } },
+	{ 0,				XF86XK_AudioNext,	   spawn, 	{.v = next    } },
+	{ 0,				XF86XK_AudioStop,	   spawn, 	{.v = playerPause } },
+	{ 0,				XF86XK_AudioPlay,	   spawn, 	{.v = play    } },
+	{ 0,				XF86XK_AudioPrev,	   spawn, 	{.v = previous} },
+	{ 0,				XF:q
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
